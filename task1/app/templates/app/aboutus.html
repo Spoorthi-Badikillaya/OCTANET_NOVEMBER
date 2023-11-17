@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+
+{% load static %}
+<html lang="en">
+
+<html>
+	<head>
+		<title>AboutUs</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'css/aboutus.css'%} " />
+		<link rel="stylesheet" href="{% static 'assets1/css/fontawesome-all.min.css'%} " />
+
+		
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<span class="image avatar"><img src="{% static 'assets1/images1/avatar.jpg'%}" alt="" /></span>
+					
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#one" class="active">About</a></li>
+						<li><a href="#two">Donate</a></li>
+						<li><a href="#three">Our Passion</a></li>
+						<li><a href="#four">Contact</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<ul class="icons">
+						
+						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="image main" data-position="center">
+									<img src="{% static 'img/image5.jpg'%}" alt="" />
+									
+								</div>
+								<div class="container">
+									<header class="major">
+										<h2>VIKASANA</h2>
+										<p></p>
+									</header>
+									<p>Eradicating Hunger, Nourishing Hope</p>
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="container">
+									<h3>Help us save lives</h3>
+									<p style="font-size:18px;">Your contribution today is a lifeline for a better tomorrow. Every donation counts in saving lives and lighting up the path to education. Your donation brings hope, healing, and education. Be the change you wish to see in the world.</p>
+									
+								</div>
+							</section>
+
+						<!-- Three -->
+						<section id="three">
+							<div class="container">
+								<h3>We are Passionate about</h3>
+								<p>In our mission to save lives and foster education, we are passionate about making a real, tangible difference. Our dedication fuels the drive to create a world where compassion, education, and health intersect to transform lives.</p>
+								<div class="inner">
+									<h4>Our Work</h4>
+									<p>Our work extends beyond saving lives; it encompasses nurturing minds and creating sustainable change. Through healthcare initiatives, educational programs, and community engagement, we strive to build a better tomorrow. We're committed to providing essential healthcare and educational opportunities, empowering individuals, and transforming communities.</p>
+								</div>
+								<article>
+									<h4>Make a Donation</h4>
+									<form action="your_payment_processor_url" method="POST">
+										<div class="form-group">
+											<label for="name">Name</label>
+											<input type="text" id="name" name="name" required>
+										</div>
+										<div class="form-group">
+											<label for="email">Email</label>
+											<input type="email" id="email" name="email" required>
+										</div>
+										<div class="form-group">
+											<label for="amount">Donation Amount</label>
+											<input type="number" id="amount" name="amount" required>
+										</div>
+										<div class="form-group">
+											<label for="payment-method">Payment Method</label>
+											<select id="payment-method" name="payment-method" required>
+												<option value="credit-card">Credit Card</option>
+												<option value="paypal">PayPal</option>
+												<!-- Add more options as needed -->
+											</select>
+										</div>
+										<button type="submit">Donate</button>
+									</form>
+								</article>
+							</div>
+						</section>
+						
+							<section id="four">
+											<a href="#" class="image"><img src="{% static 'assets1/images1/pic02.jpg'%}" alt="" /></a>
+											<div class="adress">
+												<h4>Located At</h4><br>
+												<h6 style="color:grey;">Adress Line 1</h6>
+												<h6 style="color:grey;">Adress Line 2</h6>
+												<h6 style="color:grey;">Adress Line 3</h6>
+												<p style="color:grey;">Contact us at: 0898828593</p>
+											</div>
+										</article>
+									</div>
+								</div>
+							</section>				
+						</div>
+
+					</div>
+	</body>
+</html>

@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+    <title>Register</title>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="{% url 'home' %}">HOME</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+			  <ul class="navbar-nav">
+				<li><a class="nav-link scrollto  {% if  request.resolver_match.url_name == '#' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
+				<li><a class="nav-link scrollto {% if  request.resolver_match.url_name == '#' %}active{% endif %}" href="#about">What we do</a></li>
+				<li><a class="nav-link scrollto {% if  request.resolver_match.url_name == '#' %}active{% endif %}" href="#">About Us</a></li> 
+				{% if request.user.is_authenticated %}
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-black" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  {{request.user}}
+					</a>
+				   
+					<ul class="dropdown-menu" aria-labelledby="profileDropdown">
+					  <li> <a class="dropdown-item text-white" href="{% url 'mydonations'%}"> My orders</a></li>
+					  <li> <a class="dropdown-item text-white" href="#"> Change password</a></li>
+					  <li> <a class="dropdown-item text-white" href="{% url 'logout' %}"> Logout</a></li>
+					</ul>
+				  </li>
+				</ul>
+				{% else %}
+				<li><a href="{% url 'loginpage' %}">Login</a></li>
+				<li><a href="{% url 'register' %}">Register</a></li>
+				{% endif %}                       
+			  </ul>
+			</div>
+		  </nav>
+	</header>
+    <link href="{% static "vendor/mdi-font/css/material-design-iconic-font.min.css" %}" rel="stylesheet" media="all">
+    <link href="{% static "vendor/font-awesome-4.7/css/font-awesome.min.css" %}" rel="stylesheet" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="{% static "vendor/select2/select2.min.css" %}" rel="stylesheet" media="all">
+    <link href="{% static "vendor/datepicker/daterangepicker.css" %}" rel="stylesheet" media="all">
+    <link href="{% static "css/registerstyle.css" %}" rel="stylesheet" media="all">
+	<style>
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 1000; /* Ensure it stays on top of other elements */
+			background: #fff; /* Add a background color for better visibility */
+		}
+		.navbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 20px;
+			background-color:#EBE3D5; 
+			
+		}
+		.navbar-brand {
+			color: #CE5A67;
+		}
+
+		.navbar-toggler-icon {
+			color: #CE5A67;
+		}
+
+		.navbar-nav .nav-link {
+			color: #CE5A67;
+		}  
+		.navbar a {
+			margin-right: 10px;
+			text-decoration: none;
+			color: #333;
+		}
+
+		.navbar ul {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.navbar li {
+			margin-right: 15px;
+		}
+
+	</style>
+</head>
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">Registration Form</h2>
+                    <form method="POST">
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">first name</label>
+                                    <input class="input--style-4" type="text" name="first_name">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">last name</label>
+                                    <input class="input--style-4" type="text" name="last_name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Birthday</label>
+                                    <div class="input-group-icon">
+                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Gender</label>
+                                    <div class="p-t-10">
+                                        <label class="radio-container m-r-45">Male
+                                            <input type="radio" checked="checked" name="gender">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="radio-container">Female
+                                            <input type="radio" name="gender">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Email</label>
+                                    <input class="input--style-4" type="email" name="email">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Phone Number</label>
+                                    <input class="input--style-4" type="text" name="phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="label">Subject</label>
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="subject">
+                                    <option disabled="disabled" selected="selected">Choose option</option>
+                                    <option>Subject 1</option>
+                                    <option>Subject 2</option>
+                                    <option>Subject 3</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "vendor/select2/select2.min.js" %}"></script>
+    <script src="{% static "vendor/datepicker/moment.min.js" %}"></script>
+    <script src="{% static "vendor/datepicker/daterangepicker.js" %}"></script>
+    <script src="{% static "js/global.js" %}"></script>
+</body>
+</html>

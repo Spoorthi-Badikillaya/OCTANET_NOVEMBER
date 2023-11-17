@@ -1,0 +1,332 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Welcome to Vikasana</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="{% url 'home' %}">HOME</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li><a class="nav-link scrollto" href="#about" onclick="showAboutSection()">What we do</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'aboutus' %}">About Us</a></li> 
+                    {% if request.user.is_authenticated %}
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-black" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{request.user}}
+                        </a>
+                       
+                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                          <li> <a class="dropdown-item text-white" href="#"> Change password</a></li>
+                          <li> <a class="dropdown-item text-white" href="{% url 'logout' %}"> Logout</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                    {% else %}
+                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                                   
+                  </ul>
+                </div>
+              </nav>
+        </header>
+        <style>
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1000; /* Ensure it stays on top of other elements */
+                background: #fff; /* Add a background color for better visibility */
+            }
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                padding: 20px;
+            }
+    
+            .container-wrapper {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: flex-start;
+                gap: 10px;
+                height: 350px;
+                overflow: hidden; /* To prevent overflowing content */
+            }
+    
+            .container1,
+            .container2,
+            .container3 {
+                width: 300px;
+                height: 350px;
+                background-color: #FFDFDF;
+                box-shadow: 0 0 10px 5px rgba(100, 0, 0, 0.6);
+                font-size: 18px;
+                color: #9A4444;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 10px;
+            }
+    
+            .container1 img,
+            .container2 img,
+            .container3 img {
+                width: 100%;
+                height: auto; /* Adjust image height while maintaining aspect ratio */
+                object-fit: cover; /* Cover the container while preserving aspect ratio */
+            }
+    
+            body {
+                background-image: url('{% static 'img/image4.jpg' %}');
+                background-color: #FAE7C9;
+                background-repeat: no-repeat;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                color: #CE5A67;
+                font-family: 'Roboto', sans-serif;
+                text-align: center;
+                flex-direction: column;
+                overflow-y: scroll;
+                padding-top: 10px;
+            }
+    
+            section {
+                display: none;
+                transition: opacity 1s ease-in-out;
+                position: absolute;
+                padding-top: 120px;
+            }
+    
+            section.active {
+                display: block;
+            }
+    
+            h1 {
+                margin: 0;
+                text-align: center;
+                font-size: 60px;
+                padding: 0;
+                font-family: 'Roboto', sans-serif;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+                margin: 0 0 10px 0;
+                font-weight: 600;
+                line-height: 56px;
+                text-transform: uppercase;
+            }
+    
+            h4 {
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                font-size: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+    
+            p {
+                font-family: sans-serif;
+                padding-left: 20px;
+                padding-top: 0;
+                padding-right: 0;
+                padding-bottom: 0;
+            }
+    
+            .scroll-btn {
+                padding: 20px;
+                cursor: pointer;
+                font-size: 36px;
+                color: #CE5A67;
+                background-color: #f0f0f0;
+                border-radius: 80%;
+            }
+    
+            .info {
+                margin-left: 0;
+            }
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                background-color:#EBE3D5; 
+                
+            }
+            .navbar-brand {
+                color: #CE5A67;
+            }
+    
+            .navbar-toggler-icon {
+                color: #CE5A67;
+            }
+    
+            .navbar-nav .nav-link {
+                color: #CE5A67;
+            }  
+            .navbar a {
+                margin-right: 10px;
+                text-decoration: none;
+                color: #333;
+            }
+    
+            .navbar ul {
+                display: flex;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+    
+            .navbar li {
+                margin-right: 15px;
+            }
+    
+    
+            @media screen and (max-width: 768px) {
+                h1 {
+                    font-size: 40px;
+                }
+    
+                h4 {
+                    font-size: 20px;
+                }
+    
+                .container1 {
+                    font-size: 16px;
+                }
+                .container-wrapper {
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    height: auto; /* Allowing flexibility in height */
+                }
+                .container1,
+                .container2,
+                .container3 {
+                    width: 100%; /* Full width on small screens */
+                    height: auto; /* Allowing flexibility in height */
+                }
+            }
+            .about-section {
+                background-color: #f9f9f9;
+                padding: 40px 0;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 15px;
+            }
+            
+            .about-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+            
+            .about-description {
+                flex: 1;
+                padding-right: 20px;
+            }
+            
+            .map-section {
+                flex: 1;
+                /* Map section styles */
+            }
+            
+            .additional-info {
+                margin-top: 40px;
+            }
+            
+            .about-description h3,
+            .additional-info h3 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            
+            .about-description p,
+            .additional-info p {
+                line-height: 1.6;
+            }
+            
+            h2 {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+        </style>
+
+    </head>
+    <body> 
+    <section id="heading" class="active" data-aos="fade-up">
+        <h1>Welcome to Vikasana</h1>
+        <h4>Eradicating Hunger, Nourishing Hope</h4>
+        <a href="#about" class="btn-get-started scrollto" onclick="showAboutSection()">
+            <i class="scroll-btn fas fa-angle-double-down"></i>
+        </a>
+    </section>
+
+    <section id="about" data-aos="fade-up">
+        <p style="font-size:30px;"><strong>What We do?</strong></p>         
+        <p style="font-size:18px;"><strong>Our Mission:</strong> Our mission is to bridge the educational gap and provide equitable learning opportunities for every child, irrespective of their socio-economic background. By fostering a supportive and nurturing environment, we aim to empower the next generation with the tools, skills, and knowledge necessary to thrive in a rapidly evolving world. We aim at providing quality education to underprivileged children, promoting literacy and empowering communities through education.</p>
+        <div class="container-wrapper">
+            <div class="container1">
+               <b><center> Formal education:</center></b> Educational NGOs can provide formal education to children and adults who do not have access to government schools or other educational institutions. This can include providing primary and secondary education, vocational training, and adult literacy programs.
+               <br>
+               <img src="{% static "img/image1.jpg" %}">
+            </div>
+            <div class="container2">
+                <b><center> Providing scholarships: </center></b> Providing scholarships and financial assistance to students. Scholarships and financial assistance can help students to cover the costs of tuition, fees, books, and other expenses associated with attending school. This can be important for students who have financial challenges.
+                <br>
+                <img src="{% static "img/image2.jpg" %}">
+             </div>
+             <div class="container3">
+                <b><center> Other services: </center></b> Providing support services to students and teachers, such as school meals, transportation, and healthcare. We also Organize workshops for skill development, vocational training, or entrepreneurship programs.
+                <br>
+                <img src="{% static "img/image3.jpg" %}">
+             </div>
+        </div>
+        <a href="#heading" class="btn-get-started scrollto" onclick="scrollToTop()">
+            <i class="scroll-btn fas fa-angle-double-up"></i>
+        </a>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        function showAboutSection() {
+            const headingSection = document.getElementById('heading');
+            const aboutSection = document.getElementById('about');
+            headingSection.classList.remove('active');
+            aboutSection.classList.add('active');
+            aboutSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('load', () => {
+            AOS.init({
+                duration: 1000,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false,
+                offset: 200 // Change this value as needed for when the animations trigger
+            });
+        });
+
+        function scrollToTop() {
+            const headingSection = document.getElementById('heading');
+            const aboutSection = document.getElementById('about');
+            headingSection.classList.add('active');
+            aboutSection.classList.remove('active');
+            headingSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

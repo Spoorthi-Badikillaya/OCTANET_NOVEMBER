@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>User Registration</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static 'assets/css/registerstyle.css' %}">
+		<style>
+			.eye-icon {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="">
+						<div class="card mt-3 shadow">
+							<div class="card-body">
+								<div class="wrapper">
+									<div class="inner">
+										<div class="image-holder">
+											<img src="{% static 'assets1/images1/avatar.jpg' %}">
+										</div>
+										<form action="{% url 'register' %}" method="post">
+											{% csrf_token %}
+											<h3>Sign Up/Register</h3>
+											<div class="form-holder active">
+												<label for="">Username:</label>
+												{{form.username}}
+												{% if form.errors.username %}
+												<label class="text-danger">{{form.errors.username}}</label>
+												{% endif %}
+											</div>
+											<div class="form-holder">
+												<label for="">Email:</label>
+												{{form.email}}
+												{% if form.errors.email %}
+												<label class="text-danger">{{form.errors.email}}</label>
+												{% endif %}
+											</div>
+											<div class="form-holder">
+												<label for="">Password:</label>
+												<input type="password" name="password1" id="password1">
+												<span class="eye-icon" onclick="togglePasswordVisibility('password1')">
+													<img src="{% static 'assets1/images1/eye.png' %}">
+												</span>
+												{% if form.errors.password1 %}
+												<label class="text-danger">{{form.errors.password1}}</label>
+												{% endif %}
+											</div>
+											<div class="form-holder">
+												<label for="">Confirm Password:</label>
+												<input type="password" name="password2" id="password2">
+												<span class="eye-icon" onclick="togglePasswordVisibility('password2')">
+													<img src="{% static 'assets1/images1/eye.png' %}">
+												</span>
+												{% if form.errors.password2 %}
+												<label class="text-danger">{{form.errors.password2}}</label>
+												{% endif %}
+											</div>
+
+											<div class="form-login">
+												<button type="submit" class="btn float-end shadow btn-success px-4">Register</button>
+												<p><h4>Already have an account? <a href="{% url 'loginpage' %}">Login</a></h4></p>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			function togglePasswordVisibility(fieldId) {
+				const passwordField = document.getElementById(fieldId);
+				const fieldType = passwordField.getAttribute('type');
+				const eyeIcon = passwordField.nextElementSibling;
+				
+				if (fieldType === 'password') {
+					passwordField.setAttribute('type', 'text');
+					eyeIcon.innerHTML = '<img src="{% static 'assets1/images1/eye-off.png' %}">';
+				} else {
+					passwordField.setAttribute('type', 'password');
+					eyeIcon.innerHTML = '<img src="{% static 'assets1/images1/eye.png' %}">';
+				}
+			}
+		</script>
+	</body>
+</html>

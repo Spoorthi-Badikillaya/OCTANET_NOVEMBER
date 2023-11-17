@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>User Login</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static 'assets/css/registerstyle.css' %}">
+		<style>
+			.password-toggle {
+				position: absolute;
+				top: 50%;
+				right: 10px;
+				transform: translateY(-50%);
+				cursor: pointer;
+			}
+			.password-toggle img {
+				width: 20px; /* Adjust the width as needed */
+				height: auto; /* Maintain aspect ratio */
+			}
+			.error-message {
+				color: red;
+				font-size: 12px;
+				margin-top: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="">
+						<div class="card mt-3 shadow">
+							<div class="card-body">
+								<div class="wrapper">
+									<div class="inner">
+										<div class="image-holder">
+											<img src="{% static 'assets1/images1/avatar.jpg' %}">
+										</div>
+										<form action="{% url 'loginpage' %}" method="post">
+											{% csrf_token %}
+											<h3>Login</h3>
+											<div class="form-holder active">
+												<label for="id_username">Username:</label>
+												<input type="text" class="form-control" name="username" id="id_username" placeholder="Enter username" required>
+												{% if form.errors.username %}
+													<p class="error-message">{{ form.errors.username }}</p>
+												{% endif %}
+											</div>
+											
+											<div class="form-holder">
+												<label for="psw">Password</label>
+												<input type="password" class="form-control" name="password" id="id_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter password" required>
+												<span class="password-toggle" onclick="togglePasswordVisibility()">
+													<img src="{% static 'assets1/images1/eye-closed.png' %}" alt="Hide Password" id="password-toggle-icon">
+												</span>
+											</div>
+											
+											<div class="form-login">
+												<button type="submit" class="btn float-end shadow btn-success px-4">Login</button>
+												<p><h4>Don't have an account? <a href="{% url 'register' %}">Register</a></h4></p>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			function togglePasswordVisibility() {
+				var passwordInput = document.getElementById("id_password");
+				var passwordToggleIcon = document.getElementById("password-toggle-icon");
+				
+				if (passwordInput.type === "password") {
+					passwordInput.type = "text";
+					passwordToggleIcon.src = "{% static 'assets1/images1/eye-open.png' %}";
+				} else {
+					passwordInput.type = "password";
+					passwordToggleIcon.src = "{% static 'assets1/images1/eye-closed.png' %}";
+				}
+			}
+			document.getElementById("id_username").addEventListener("input", enablePasswordField);
+			
+			function enablePasswordField() {
+				var usernameInput = document.getElementById("id_username");
+				var passwordInput = document.getElementById("id_password");
+				var formHolder = document.querySelector(".form-holder");
+				
+				if (usernameInput.value.trim() !== "") {
+					passwordInput.removeAttribute("disabled");
+					formHolder.classList.remove("disabled");
+				} else {
+					passwordInput.setAttribute("disabled", "disabled");
+					formHolder.classList.add("disabled");
+				}
+			}
+		</script>
+	</body>
+</html>
