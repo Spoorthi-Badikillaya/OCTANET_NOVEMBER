@@ -1,0 +1,114 @@
+{% extends "app/main.html" %}
+{% load static %}
+{% block content %}
+<header>
+    <nav class="navbar">                                                                                                                                            
+        <h1 class="navbar-brand"> TaskEase </h1>
+        <ul class="navbar-nav">
+            
+            <li><a href="{% url "home" %}">Home</a></li>
+            
+            {% if request.user.is_authenticated %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-black" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{ request.user }}
+                  </a>
+                 
+                  <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                      <li><a class="dropdown-item text-white" href="{% url 'tasks' %}">Tasks</a></li>
+                      <li><a class="dropdown-item text-white" href="#">Change password</a></li>
+                      <li><a class="dropdown-item text-white" href="{% url 'logout' %}">Logout</a></li>
+                  </ul>
+              </li>
+          </ul>
+          
+              
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="#main">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+<div class="sidebar">
+    <h3> Your tasks, your way, anytime.</h3>
+    <p>Effortlessly organize your life with TaskEase.</p>
+    <p>Key Features</p>
+     <b><li>Prioritize tasks</li>
+     <li>Deadlines & Reminders</li>
+      <li>Categorization</li>
+      <li>Progress Tracking</li>
+      <li>Accessible Anywhere</li>
+     </ul></b>
+ </div>
+ <section id="main">
+ <div class="column column-lg-5 column-md-6 column-xs-10 column-md-offset-0 ">
+     <div class="content1">
+     <h2>Get Started</h2>
+     <p>Log in or create an account to organize your tasks!</p>
+     </div>
+     <div class="form-section">
+         <form action="{% url 'register' %}" method="post">
+             {% csrf_token %}
+             <div class="register">
+                 <label for="email">Work Email:</label>
+                 <input type="email" id="email" name="email" required><br><br><br>
+             
+                 <label for="username">Username:</label>
+                 <input type="text" id="username" name="username" required><br><br><br>
+             
+                 <label for="password1">Password:</label>
+                 <input type="password" id="password1" name="password1" required><br><br><br>
+             
+                 <label for="password2">Confirm Password:</label>
+                 <input type="password" id="password2" name="password2" required><br><br><br>
+             <button class="gradient-btn">Continue</button><br><br>
+             </div><br>
+             <div class="alternative">
+                 <p>OR</p><br>
+             <button class="gradient-btn" type="submit">
+             <a href="/auth/google" class="google-btn">Continue with Google</a></button>
+             </div>
+             <div class="login">
+                 <p>Already a user?</p>
+                 <a href="#">Login</a>
+             </div>
+             {% if form.errors %}
+<div class="alert alert-danger">
+{% for field, errors in form.errors.items %}
+{% for error in errors %}
+ {{ error }}
+{% endfor %}
+{% endfor %}
+</div>
+{% endif %}
+         </form>
+     </div>
+ </div>
+</section><br><br><br><br>
+<section id="features">
+<div class="section-2">
+ <h1 class="feature1">Get Your Game On: Prioritize Tasks Like a Pro</h1>
+     <div class="features">
+         <div class="column-2">
+             <p>Effortlessly assign priorities to tasks. Categorize responsibilities as urgent, important, or flexible using intuitive labels. This feature enables a structured approach to manage time-sensitive and high-impact tasks efficiently.</p>
+         </div>
+         <div class="img-1">
+             <img src="{% static "img/image5.jpg" %}">
+         </div>
+     </div>
+</div>
+</section>
+</body>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script>
+alertify.set('notifier','position', 'top-right');
+{% for msg in messages %}
+alertify.success('{{ msg }}');
+{% endfor %}
+
+</script>
+{% endblock content %}
+
+</html>
